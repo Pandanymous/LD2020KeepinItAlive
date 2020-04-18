@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\FieldOfView.cs" />
+    <Compile Include="Assets\Scripts\MyColor.cs" />
     <Compile Include="Assets\Scripts\PixelBehaviours.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>N:/GameEngine/Unity Games/Jam/KeepItAlive/Keep it Alive/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
