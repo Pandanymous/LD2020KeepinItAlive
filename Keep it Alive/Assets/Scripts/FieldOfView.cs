@@ -7,6 +7,8 @@ public class FieldOfView : MonoBehaviour
     #region Param
     [SerializeField]private float viewRadius;
 
+    [SerializeField] private float delay;
+
     [Range (0,360)]
     [SerializeField] private float viewAngle;
 
@@ -14,19 +16,28 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] private LayerMask obstacleMask;
 
     [SerializeField] private List<Transform> visibleTarget = new List<Transform>();
+    [SerializeField] private List<GameObject> visibleGameobject = new List<GameObject>();
     #endregion
 
     #region UPDATE
     private void Start()
     {
-
+        StartCoroutine("FindTargetWithDelay", delay);
     }
     private void FixedUpdate()
     {
-        FindTarget();
     }
     #endregion
 
+
+    IEnumerator FindTargetWithDelay(float delay)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(delay);
+            FindTarget();
+        }
+    }
 
     #region FindTarget
     public Vector3 DirFromAngle( float angleInDegrees, bool angleIsGlobal) {
@@ -40,7 +51,8 @@ public class FieldOfView : MonoBehaviour
     void FindTarget()
     {
         visibleTarget.Clear();
-        Collider[] targetsInRadius = Physics.OverlapSphere(transform.position, viewRadius);
+        visibleGameobject.Clear();
+        Collider[] targetsInRadius = Physics.OverlapSphere(transform.position, viewRadius,targetMask);
         Debug.Log(targetsInRadius.Length);
          for (int i = 0; i < targetsInRadius.Length; i++)
         {
@@ -49,9 +61,26 @@ public class FieldOfView : MonoBehaviour
             if (Vector3.Angle(transform.right, dirToTarget) < viewAngle / 2)
             {
                 float distanceToTarget = Vector3.Distance(transform.position, target.position);
-                if(!Physics.Raycast(transform.position,dirToTarget,distanceToTarget,obstacleMask))
+                visibleGameobject.Add(targetsInRadius[i].gameObject);
+                RaycastHit hitInfo;
+                if(!Physics.Raycast(transform.position,dirToTarget, out hitInfo, distanceToTarget, obstacleMask))
+                {
                     visibleTarget.Add(target);
+                }
+                    
             }
+        }
+         if(visibleGameobject.Count != 0)
+        {
+            UpdateSpotColor();
+        }
+    }
+
+    private void UpdateSpotColor()
+    {
+        foreach (GameObject spot in visibleGameobject)
+        {
+            spot.GetComponent<PixelBehaviours>().Add(gameObject.tag);
         }
     }
 

@@ -24,6 +24,7 @@ public class PixelBehaviours : MonoBehaviour
     [Space]
     [Header("Les couleurs")]
     [SerializeField] MyColor[] mycolor;
+    [SerializeField] MyImage[] myimg;
 
     //Variable pour modifier les couleurs
     Renderer myMat;
@@ -47,10 +48,11 @@ public class PixelBehaviours : MonoBehaviour
     }
     #endregion
 
-    void add(string objectTag)
+    public void Add(string objectTag)
     {
-        if(affect.Count != 0)
-        {
+        Debug.Log(objectTag);
+        //if(affect.Count != 0)
+        //{
             switch (objectTag)
             {
                 case "SUN":
@@ -73,11 +75,11 @@ public class PixelBehaviours : MonoBehaviour
                     Debug.Log("stop");
                     break;
             }
-        }
-        else
+        //}
+        /*else
         {
             sun = (int)Mathf.Lerp(sun, 0, 10);
-        }
+        }*/
         
         VerifColor();
     }
@@ -170,7 +172,7 @@ public class PixelBehaviours : MonoBehaviour
         if(other.tag != null)
         {
             affect.Add(other.gameObject.name);
-            add(other.tag);
+            Add(other.tag);
         }
     }
 
