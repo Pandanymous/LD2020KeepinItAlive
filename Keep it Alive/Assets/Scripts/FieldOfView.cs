@@ -17,6 +17,10 @@ public class FieldOfView : MonoBehaviour
     #endregion
 
     #region UPDATE
+    private void Start()
+    {
+
+    }
     private void FixedUpdate()
     {
         FindTarget();
