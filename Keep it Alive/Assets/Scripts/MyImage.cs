@@ -9,7 +9,7 @@ public class MyImage
     [SerializeField] Sprite image;
 
     #region GETTER && SETTER
-    public Color Color { get => color; set => color = value; }
+    public Sprite Image { get => image; set => image = value; }
     public string Name { get => name; set => name = value; }
     #endregion
 }

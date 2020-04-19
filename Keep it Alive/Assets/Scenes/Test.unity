@@ -1548,6 +1548,11 @@ PrefabInstance:
       propertyPath: m_Icon
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8179902654718430316, guid: 5f6dd994dcdc95545aa8788082b5be4f,
+        type: 3}
+      propertyPath: myimg.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8179902654718430318, guid: 5f6dd994dcdc95545aa8788082b5be4f,
         type: 3}
       propertyPath: m_Mesh
