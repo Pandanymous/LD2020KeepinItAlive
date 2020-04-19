@@ -44,48 +44,44 @@ public class PixelBehaviours : MonoBehaviour
     }
     private void Update()
     {
-        /*if (affect.Count == 0 && sun > 0)
+        if(affect.Count == 0)
         {
-            Debug.Log("ok");
-
-            sun -= reduce.Evaluate(Time.deltaTime);
-        }*/
+            GoBackToNormal();
+        }
+            //sun -= reduce.Evaluate(Time.deltaTime);
     }
     #endregion
 
     public void Add(string objectTag)
     {
         Debug.Log(objectTag);
-        //if(affect.Count != 0)
-        //{
+        affect.Clear();
             switch (objectTag)
             {
                 case "SUN":
                     sun++;
+                    affect.Add("SUN");
                     break;
 
                 case "MOON":
                     moon++;
+                    affect.Add("MOON");
                     break;
 
                 case "WIND":
                     wind++;
+                    affect.Add("WIND");
                     break;
 
                 case "RAIN":
                     rain++;
+                    affect.Add("RAIN");
                     break;
 
                 default:
                     Debug.Log("stop");
                     break;
-            }
-        //}
-        /*else
-        {
-            sun = (int)Mathf.Lerp(sun, 0, 10);
-        }*/
-        
+            }        
         VerifColor();
     }
 
@@ -193,6 +189,21 @@ public class PixelBehaviours : MonoBehaviour
                 //mySprite.color = myColor[9].Color;
                 break;
         }
+    }
+
+    void GoBackToNormal()
+    {
+        if(sun !=0)
+            sun -= reduce.Evaluate(Time.deltaTime);
+
+        if (sun != 0)
+            moon -= reduce.Evaluate(Time.deltaTime);
+
+        if (sun != 0)
+            rain -= reduce.Evaluate(Time.deltaTime);
+
+        if (sun != 0)
+            wind -= reduce.Evaluate(Time.deltaTime); 
     }
 
     #region Ontrigger
